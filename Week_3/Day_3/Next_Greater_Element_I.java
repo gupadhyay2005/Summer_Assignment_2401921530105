@@ -1,48 +1,28 @@
-class MinStack {
-    Stack<Integer>  minstack = new Stack<>();
-        Stack<Integer>  s = new Stack<>();
+class Solution {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+         
+         HashMap < Integer , Integer  > map = new HashMap <>();
+         Stack <Integer>  s = new Stack<>();
+          for( int i = nums2.length - 1 ; i>= 0 ; i--){
+            while(  !s.isEmpty() && s.peek() <= nums2[i]){
+                s.pop();
+            }
+            if( s.isEmpty()){
+                map.put( nums2[i] , -1);
 
+            }
+            else{
+                map.put(nums2[i]  , s.peek());
+                            }
+                            s.push(nums2[i]);
+          }
 
-    public MinStack() {
-    }
+          int ans[] = new int[nums1.length];
+  for( int  i = 0 ; i< nums1.length  ; i++){
+    ans[i] = map.get(nums1[i]);
 
-    
-    public void push(int value) {
-       
-    s.push(value);
-    if(minstack.isEmpty() || minstack.peek()>=value){
-        minstack.push(value);
-    }
-        
-    }
-    
-    public void pop() {
-        if(minstack.peek().equals(s.peek())){
-            minstack.pop();
-        }
-        
-        s.pop();
+  } 
+  return ans ;       
         
             }
-    
-    public int top() {
-        return  s.peek();
-        
-    }
-    
-    public int getMin() {
-        return minstack.peek();
-        }
-        
-        
-    
 }
-
-/**
- * Your MinStack object will be instantiated and called as such:
- * MinStack obj = new MinStack();
- * obj.push(value);
- * obj.pop();
- * int param_3 = obj.top();
- * int param_4 = obj.getMin();
- */
